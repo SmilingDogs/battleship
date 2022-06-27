@@ -1,0 +1,51 @@
+.app {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.line {
+  display: flex;
+}
+
+.disabled {
+  opacity: 0.4;
+}
+
+.cell {
+  border: 1px solid rgb(7, 118, 151);
+  cursor: pointer;
+  background-color: skyblue;
+  min-height: 2.5em;
+  min-width: 2.5em;
+}
+
+.hit {
+  border: 3px solid red;
+}
+
+.btn {
+  margin-top: 2em;
+  background-color: rgb(13, 12, 12);
+  border: 1px solid #dedede;
+  color: azure;
+  font-size: 1.2em;
+  box-shadow: none;
+  padding: 0.5em 1.5em;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.show {
+  visibility: visible;
+  opacity: 1;
+  text-align: center;
+  margin-top: 60px;
+  transition: all 1.5s ease;
+}
