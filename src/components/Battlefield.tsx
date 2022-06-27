@@ -1,4 +1,3 @@
-
 import { CHECKED_SHIP, CHECKED_WATER, SHIP, WATER } from '../utils/cellstate';
 
 type CellProps = {
@@ -6,6 +5,7 @@ type CellProps = {
   handleClick: (y: number, x: number) => void;
   x: number;
   y: number;
+  won: boolean;
 };
 
 const cellStateMap: any = {
@@ -15,10 +15,13 @@ const cellStateMap: any = {
   [CHECKED_SHIP]: '🔥',
 };
 
-const Cell = ({ handleClick, value, x, y }: CellProps) => {
+const Cell = ({ handleClick, value, x, y, won }: CellProps) => {
   return (
-    <button className={cellStateMap[value] === '🔥' ? 'cell hit' : 'cell' } onClick={() => handleClick(y, x)}>
-      {cellStateMap[value]}
+    <button
+      className={cellStateMap[value] === '🔥' ? 'cell hit' : 'cell'}
+      onClick={() => handleClick(y, x)}
+    >
+      {won ? cellStateMap[CHECKED_WATER] : cellStateMap[value]}
     </button>
   );
 };
@@ -27,18 +30,19 @@ type BattlefieldProps = {
   matrix: number[][];
   disabled: boolean;
   onFire: (y: number, x: number) => void;
+  won: boolean;
 };
 
 const empty = () => null;
 
-export const Battlefield = ({ matrix, onFire, disabled }: BattlefieldProps) => {
+export const Battlefield = ({ matrix, onFire, disabled, won }: BattlefieldProps) => {
 
   const fire = disabled ? empty : onFire;
 
   return (
     <div className={`${disabled ? 'disabled' : ''}`}>
       {matrix.map((line, lineNumber) => (
-        <div className="line" key={lineNumber}>
+        <div className='line' key={lineNumber}>
           {line.map((v, i) => (
             <Cell
               key={`${lineNumber}${i}`}
@@ -46,6 +50,7 @@ export const Battlefield = ({ matrix, onFire, disabled }: BattlefieldProps) => {
               y={lineNumber}
               x={i}
               handleClick={fire}
+              won={won}
             />
           ))}
         </div>
@@ -53,4 +58,3 @@ export const Battlefield = ({ matrix, onFire, disabled }: BattlefieldProps) => {
     </div>
   );
 };
-
