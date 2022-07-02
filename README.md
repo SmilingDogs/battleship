@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Here's how you send a Russian Warship to a well-known direction))
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
 
 ## Available Scripts
 
