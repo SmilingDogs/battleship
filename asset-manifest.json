@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/battleship/static/css/main.66a8ea19.css",
+    "main.js": "/battleship/static/js/main.f3910817.js",
+    "static/media/russian-warship.png": "/battleship/static/media/russian-warship.07dc1d5cbe32cb5c5188.png",
+    "index.html": "/battleship/index.html",
+    "main.66a8ea19.css.map": "/battleship/static/css/main.66a8ea19.css.map",
+    "main.f3910817.js.map": "/battleship/static/js/main.f3910817.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.66a8ea19.css",
+    "static/js/main.f3910817.js"
+  ]
+}
