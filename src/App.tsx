@@ -10,7 +10,7 @@ function App() {
 
   return (
     <div className="app">
-      <HeaderWithCounter turn={turn} />
+      <HeaderWithCounter turn={turn} sunk={won} />
       <Battlefield matrix={matrix} onFire={fire} disabled={false} won={won} />
       <ResetButton reset={reset} />
       <RussianWarship sunk={won} />
