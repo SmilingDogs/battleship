@@ -1,13 +1,12 @@
-import './App.css';
-import { HeaderWithCounter } from './components/HeaderWithCounter';
-import { Battlefield } from './components/Battlefield';
-import { ResetButton } from './components/ResetButton';
-import { useGameState } from './hooks/useGameState';
-import { RussianWarship } from './components/RussianWarship'
-
+import "./App.css";
+import { Battlefield } from "./components/Battlefield";
+import { HeaderWithCounter } from "./components/HeaderWithCounter";
+import { ResetButton } from "./components/ResetButton";
+import { RussianWarship } from "./components/RussianWarship";
+import { useGameState } from "./hooks/useGameState";
 
 function App() {
-  const {turn, reset, matrix, fire, won} = useGameState();
+  const { turn, reset, matrix, fire, won } = useGameState();
 
   return (
     <div className="app">

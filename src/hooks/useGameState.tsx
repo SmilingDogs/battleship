@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { createArray } from '../utils/array';
-import { createWarShip } from '../utils/battlefield';
+import { createFleet } from '../utils/battlefield';
 import { WATER, SHIP, CHECKED_WATER, CHECKED_SHIP } from '../utils/cellstate';
 
 const MATRIX_LENGTH = 10;
@@ -8,26 +8,29 @@ const MATRIX_LENGTH = 10;
 const createEmptyBattlefield = () =>
   createArray(MATRIX_LENGTH, () => createArray(MATRIX_LENGTH, () => 0));
 
+const revealBattlefield = (matrix: number[][]) =>
+  matrix.map((line) =>
+    line.map((cell) => {
+      if (cell === SHIP) {
+        return CHECKED_SHIP;
+      }
+
+      return cell === WATER ? CHECKED_WATER : cell;
+    })
+  );
 
 const createBattlefieldWithEnemyShip = () => {
   const battlefieldWithShip = createEmptyBattlefield();
-  const newWarShip4 = createWarShip(4, MATRIX_LENGTH);
-  const newWarShip3 = createWarShip(3, MATRIX_LENGTH)
+  const fleet = createFleet([4, 3], MATRIX_LENGTH);
 
-  newWarShip4.forEach(({ x, y }) => {
+  fleet.flat().forEach(({ x, y }) => {
     battlefieldWithShip[y][x] = SHIP;
   });
-
-  newWarShip3.forEach(({ x, y }) => {
-    battlefieldWithShip[y][x] = SHIP;
-  });
-  // console.log(battlefieldWithShip);
 
   return battlefieldWithShip;
 };
 
 export const useGameState = () => {
-
   const [state, setState] = useState({
     matrix: createBattlefieldWithEnemyShip(),
     turn: 0,
@@ -43,29 +46,24 @@ export const useGameState = () => {
   };
 
   const fire = (y: number, x: number) => {
-
     const cell = state.matrix[y][x];
-
-    console.log(cell);
-
 
     if (cell === CHECKED_WATER || cell === CHECKED_SHIP) {
       return;
     }
 
     const newState = cell === WATER ? CHECKED_WATER : CHECKED_SHIP;
-    console.log(newState);
+    const nextMatrix = state.matrix.map((line, lineIndex) =>
+      lineIndex === y ? line.map((value, cellIndex) => (cellIndex === x ? newState : value)) : line
+    );
 
-    state.matrix[y][x] = newState;
+    const won = nextMatrix.every((line) => line.every((value) => value !== SHIP));
+    const matrix = won ? revealBattlefield(nextMatrix) : nextMatrix;
 
-    const won = state.matrix.every((line) => line.every((x) => x !== SHIP));
+    setState({ ...state, matrix, turn: state.turn + 1, won });
+  };
 
-    setState({ ...state, turn: state.turn + 1, won });
-    console.log(state);
-
-  }
   const { turn, matrix, won } = state;
 
   return { turn, reset, matrix, fire, won };
-  
 };
